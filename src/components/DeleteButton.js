@@ -15,11 +15,11 @@ function DeleteButton({ postId, commentId, callback }) {
     update(proxy) {
       setConfirmOpen(false);
       if (!commentId) {
-        const { data: { getPosts } = {} } = proxy.readQuery({
+        const { data= {} } = proxy.readQuery({
           query: FETCH_POSTS_QUERY,
         });
-        getPosts = getPosts.filter((p) => p.id !== postId);
-        proxy.writeQuery({ query: FETCH_POSTS_QUERY, getPosts });
+        data.getPosts = data.getPosts.filter((p) => p.id !== postId);
+        proxy.writeQuery({ query: FETCH_POSTS_QUERY, data });
       }
       if (callback) callback();
     },
